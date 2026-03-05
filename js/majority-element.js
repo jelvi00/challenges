@@ -34,26 +34,24 @@ const ownMajorityElement = (arr) => {
     if (!arr?.length) return null;
 
     const votes = {};
+    const threshold = arr.length / 2;
 
-    for (let i = arr.length - 1; i >= 0; i--) {
+    for (const vote of arr) {
 
-        const current = arr[i];
+        if (votes[vote]) votes[vote]++
+        else votes[vote] = 1;
 
-        if (!votes[current]) votes[current] = 1;
-        else votes[current]++;
+        if (votes[vote] > threshold) return vote;
 
     }
 
-    const winner = Object.entries(votes)
-        .find(([, vote]) => vote > (arr.length / 2));
-
-    return winner ? winner[0] : null;
+    return null;
 
 }
 
 function make() {
 
-    const winner = ownMajorityElement([2, 2, 1, 1, 2, 2, 1, 2, 2]);
+    const winner = ownMajorityElement([2, 1, 1, 2, 2]);
 
     console.log(winner);
 }
