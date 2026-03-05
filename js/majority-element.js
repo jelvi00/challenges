@@ -10,13 +10,16 @@
 // > majorityElement([3, 3, 4, 2, 3, 3, 1])
 // 3
 
+//Memory efficient, low precision
 const boyerMajorityElement = (arr) => {
 
     if (!arr?.length) return null;
 
-    let major = null;
+    const threshold = arr.length / 2;
     let votes = 0;
+    let major = null;
 
+    //Boyer Moore Voting Algorithm
     for (const num of arr) {
 
         if (!votes) major = num;
@@ -25,16 +28,19 @@ const boyerMajorityElement = (arr) => {
 
     }
 
-    return major;
+    const voteCount = arr.filter((value) => value === major).length;
+
+    return (voteCount > threshold) ? major : null;
 
 }
 
+//Memory inefficient, high precision
 const ownMajorityElement = (arr) => {
 
     if (!arr?.length) return null;
 
-    const votes = {};
     const threshold = arr.length / 2;
+    const votes = {};
 
     for (const vote of arr) {
 
@@ -51,7 +57,7 @@ const ownMajorityElement = (arr) => {
 
 function make() {
 
-    const winner = ownMajorityElement([2, 1, 1, 2, 2]);
+    const winner = boyerMajorityElement([2, 1, 1, 2, 5]);
 
     console.log(winner);
 }
