@@ -15,22 +15,22 @@ const boyerMajorityElement = (arr) => {
 
     if (!arr?.length) return null;
 
-    const threshold = arr.length / 2;
     let votes = 0;
     let major = null;
 
     //Boyer Moore Voting Algorithm
     for (const num of arr) {
-
         if (!votes) major = num;
-
         votes += (major === num) ? 1 : -1;
-
     }
 
-    const voteCount = arr.filter((value) => value === major).length;
+    let voteCount = 0;
 
-    return (voteCount > threshold) ? major : null;
+    for (const num of arr) {
+        if (major === num) voteCount++;
+    }
+
+    return (voteCount > (arr.length / 2)) ? major : null;
 
 }
 
@@ -57,7 +57,7 @@ const ownMajorityElement = (arr) => {
 
 function make() {
 
-    const winner = boyerMajorityElement([2, 1, 1, 2, 5]);
+    const winner = boyerMajorityElement([3, 3, 4, 2, 3, 3, 1]);
 
     console.log(winner);
 }
